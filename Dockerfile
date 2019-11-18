@@ -31,8 +31,8 @@ COPY --chown=www:www . /var/www
 # Change current user to www
 USER www
 
-# Update PATH for lumen
-ENV PATH=${PATH}:/var/www/vendor/bin
+# Update PATH for lumen, but access has only admin, so if you want to create new lumen app run docker exec -it -u 0 app lumen new <project name>
+ENV PATH=${PATH}:/root/.composer/vendor/bin
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
