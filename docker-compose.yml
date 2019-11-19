@@ -6,7 +6,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-
     image: lumen_php
     container_name: app
     restart: unless-stopped
@@ -14,11 +13,20 @@ services:
     environment:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
-      
     working_dir: /var/www
     volumes:
       - ./:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+
+  # Composer Service
+  composer:
+    image: composer:latest
+    container_name: composer
+    tty: true
+    volumes:
+      - ./:/app
     networks:
       - app-network
     command: composer install
@@ -37,7 +45,6 @@ services:
       - ./nginx/conf.d/:/etc/nginx/conf.d
     networks:
       - app-network
-
 
 #Docker Networks
 networks:
