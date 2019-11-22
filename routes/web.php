@@ -15,4 +15,4 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->post('/setWebhook', 'SetWebhook@set');
+$router->get('/setWebhook', 'SetWebhook@set');
