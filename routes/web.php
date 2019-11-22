@@ -16,3 +16,4 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('/setwebhook', 'SetWebhook@set');
+$router->post('/telegrambot', 'WebhookHandler@handle');

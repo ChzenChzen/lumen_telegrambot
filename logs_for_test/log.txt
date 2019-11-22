@@ -1,0 +1,9 @@
+POST /telegrambot HTTP/1.1
+Accept-Encoding: gzip, deflate
+Connection:      keep-alive
+Content-Length:  269
+Content-Type:    application/json
+Host:            fomotoshi.dev
+
+{"update_id":948691090,
+"message":{"message_id":2,"from":{"id":124448819,"is_bot":false,"first_name":"ChzChz","username":"ChzChz","language_code":"en"},"chat":{"id":124448819,"first_name":"ChzChz","username":"ChzChz","type":"private"},"date":1574432083,"text":"hello"}}
