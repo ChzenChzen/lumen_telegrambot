@@ -6,9 +6,10 @@ $method = 'setWebhook';
 
 $url = 'https://api.telegram.org/bot' . TOKEN . '/' . $method;
 $options = [
-    'url' => 'https://fomotoshi.dev',
+    'url' => 'https://fomotoshi.dev/index.php',
 ];
+echo($url . '?' . http_build_query($options));
 
-$response = file_get_contents($url . '?' . http_build_query($options));
+// $response = file_get_contents($url . '?' . http_build_query($options));
 
-var_dump($response);
+// var_dump($response);
