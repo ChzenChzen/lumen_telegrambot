@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class ExampleController extends Controller
+class SetWebhook extends Controller
 {
     /**
      * Create a new controller instance.
@@ -14,8 +14,18 @@ class ExampleController extends Controller
         //
     }
 
-    public function set(Request $request)
+    public function set()
     {
-        dd($request);
+        $TOKEN = '784355426:AAEgw0aJ01hx3PAr3AtAQSff6FF-c6T_bfw';
+        $method = 'setWebhook';
+
+
+        $url = 'https://api.telegram.org/bot' . $TOKEN . '/' . $method;
+        $options = [
+            'url' => 'https://fomotoshi.dev/telegrambot',
+        ];
+
+        $response = file_get_contents($url . '?' . http_build_query($options));
+        dd($response);
     }
 }
