@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Services\TelegramHandler;
 
 
 class WebhookHandler extends Controller
@@ -18,10 +19,9 @@ class WebhookHandler extends Controller
     }
 
     public function handle(Request $request)
-    {
-        
-        file_put_contents('/var/www/logs_for_test/log.txt', $request);
+    {   
+        $data = $request->json()->all();
+        $telegram_handler = new TelegramHandler;
+        $telegram_handler->handle($data);
     }
-
-    //
 }

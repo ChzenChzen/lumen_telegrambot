@@ -18,6 +18,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install lumen framework
 RUN composer global require "laravel/lumen-installer"
 
+# Install Xdebug
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
 # Add user for lumen application
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www

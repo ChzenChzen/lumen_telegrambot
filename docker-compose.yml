@@ -18,20 +18,21 @@ services:
       - "9000:9000"
     volumes:
       - ./:/var/www
-      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      # - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./php/php.ini:/usr/local/etc/php/php.ini
     networks:
       - app-network
 
   # Composer Service
-  composer:
-    image: composer:latest
-    container_name: composer
-    tty: true
-    volumes:
-      - ./:/app
-    networks:
-      - app-network
-    command: composer install
+  # composer:
+  #   image: composer:latest
+  #   container_name: composer
+  #   tty: true
+  #   volumes:
+  #     - ./:/app
+  #   networks:
+  #     - app-network
+  #   command: composer install
 
   # #Nginx Service
   # webserver:
