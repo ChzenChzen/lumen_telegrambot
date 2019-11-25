@@ -8,7 +8,7 @@ class AssetConvertor
 {
     public function convert(string $asset, int $amount)
     {
-        $http_client = new GuzzleHttp\Client;
+        $http_client = new Client();
         $response = $http_client->get('https://google.com');
         return $response;
     }

@@ -18,7 +18,7 @@ class TelegramHandler
 
         preg_match($re, $text, $matches);
 
-        $convertor = new AssetConvertor();
+        $convertor = new AssetConvertor;
         $response = $convertor->convert("EUR", 400);
 
         // if (count($matches) == 4) {
@@ -29,7 +29,7 @@ class TelegramHandler
 
         // debug
 
-        $result = print_r($response->getBody(), true);
+        $result = print_r($response, true);
         file_put_contents('log.txt', $result, FILE_APPEND | LOCK_EX);
     }
 }

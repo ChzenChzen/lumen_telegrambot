@@ -1,0 +1,321 @@
+GuzzleHttp\Psr7\Response Object
+(
+    [reasonPhrase:GuzzleHttp\Psr7\Response:private] => OK
+    [statusCode:GuzzleHttp\Psr7\Response:private] => 200
+    [headers:GuzzleHttp\Psr7\Response:private] => Array
+        (
+            [Date] => Array
+                (
+                    [0] => Mon, 25 Nov 2019 15:57:29 GMT
+                )
+
+            [Expires] => Array
+                (
+                    [0] => -1
+                )
+
+            [Cache-Control] => Array
+                (
+                    [0] => private, max-age=0
+                )
+
+            [Content-Type] => Array
+                (
+                    [0] => text/html; charset=ISO-8859-1
+                )
+
+            [P3P] => Array
+                (
+                    [0] => CP="This is not a P3P policy! See g.co/p3phelp for more info."
+                )
+
+            [Server] => Array
+                (
+                    [0] => gws
+                )
+
+            [X-XSS-Protection] => Array
+                (
+                    [0] => 0
+                )
+
+            [X-Frame-Options] => Array
+                (
+                    [0] => SAMEORIGIN
+                )
+
+            [Set-Cookie] => Array
+                (
+                    [0] => 1P_JAR=2019-11-25-15; expires=Wed, 25-Dec-2019 15:57:29 GMT; path=/; domain=.google.com
+                    [1] => NID=192=0W0AjEw6sbfl3um9l5F5crKCjhIjcACPR1RgBLHdePL1Li9VZFOhuSF9tY6qEA3CdCh7vtobTibNvOQXNx79o24ZjRT58tgekvXJytdvmNrDcE3J1KM95vXmruoVuh2DArZ4yz_cXovHq7QiN46Bt2usYp8QG_X_Wp0cKYqr1jE; expires=Tue, 26-May-2020 15:57:29 GMT; path=/; domain=.google.com; HttpOnly
+                )
+
+            [Alt-Svc] => Array
+                (
+                    [0] => quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443"; ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443"; ma=2592000
+                )
+
+            [Accept-Ranges] => Array
+                (
+                    [0] => none
+                )
+
+            [Vary] => Array
+                (
+                    [0] => Accept-Encoding
+                )
+
+            [Transfer-Encoding] => Array
+                (
+                    [0] => chunked
+                )
+
+        )
+
+    [headerNames:GuzzleHttp\Psr7\Response:private] => Array
+        (
+            [date] => Date
+            [expires] => Expires
+            [cache-control] => Cache-Control
+            [content-type] => Content-Type
+            [p3p] => P3P
+            [server] => Server
+            [x-xss-protection] => X-XSS-Protection
+            [x-frame-options] => X-Frame-Options
+            [set-cookie] => Set-Cookie
+            [alt-svc] => Alt-Svc
+            [accept-ranges] => Accept-Ranges
+            [vary] => Vary
+            [transfer-encoding] => Transfer-Encoding
+        )
+
+    [protocol:GuzzleHttp\Psr7\Response:private] => 1.1
+    [stream:GuzzleHttp\Psr7\Response:private] => GuzzleHttp\Psr7\Stream Object
+        (
+            [stream:GuzzleHttp\Psr7\Stream:private] => Resource id #118
+            [size:GuzzleHttp\Psr7\Stream:private] => 
+            [seekable:GuzzleHttp\Psr7\Stream:private] => 1
+            [readable:GuzzleHttp\Psr7\Stream:private] => 1
+            [writable:GuzzleHttp\Psr7\Stream:private] => 1
+            [uri:GuzzleHttp\Psr7\Stream:private] => php://temp
+            [customMetadata:GuzzleHttp\Psr7\Stream:private] => Array
+                (
+                )
+
+        )
+
+)
+GuzzleHttp\Psr7\Response Object
+(
+    [reasonPhrase:GuzzleHttp\Psr7\Response:private] => OK
+    [statusCode:GuzzleHttp\Psr7\Response:private] => 200
+    [headers:GuzzleHttp\Psr7\Response:private] => Array
+        (
+            [Date] => Array
+                (
+                    [0] => Mon, 25 Nov 2019 15:57:34 GMT
+                )
+
+            [Expires] => Array
+                (
+                    [0] => -1
+                )
+
+            [Cache-Control] => Array
+                (
+                    [0] => private, max-age=0
+                )
+
+            [Content-Type] => Array
+                (
+                    [0] => text/html; charset=ISO-8859-1
+                )
+
+            [P3P] => Array
+                (
+                    [0] => CP="This is not a P3P policy! See g.co/p3phelp for more info."
+                )
+
+            [Server] => Array
+                (
+                    [0] => gws
+                )
+
+            [X-XSS-Protection] => Array
+                (
+                    [0] => 0
+                )
+
+            [X-Frame-Options] => Array
+                (
+                    [0] => SAMEORIGIN
+                )
+
+            [Set-Cookie] => Array
+                (
+                    [0] => 1P_JAR=2019-11-25-15; expires=Wed, 25-Dec-2019 15:57:34 GMT; path=/; domain=.google.com
+                    [1] => NID=192=ygxURQp3K9617YzqE3KK9rW1cMCepAj8w3bOvTj1SV3CuBLtVz6nmBo2JwM1ebVS712EH-l0SXvHRpZ45gHL0b_sLbabzEvpl1jmrQf92nKBXlYsGf_RVQfgtt7X7KFQ9iW_-nlgqTr6aQR6I9yFcN5kCC4Iq3087SPmf9qc-kc; expires=Tue, 26-May-2020 15:57:34 GMT; path=/; domain=.google.com; HttpOnly
+                )
+
+            [Alt-Svc] => Array
+                (
+                    [0] => quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443"; ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443"; ma=2592000
+                )
+
+            [Accept-Ranges] => Array
+                (
+                    [0] => none
+                )
+
+            [Vary] => Array
+                (
+                    [0] => Accept-Encoding
+                )
+
+            [Transfer-Encoding] => Array
+                (
+                    [0] => chunked
+                )
+
+        )
+
+    [headerNames:GuzzleHttp\Psr7\Response:private] => Array
+        (
+            [date] => Date
+            [expires] => Expires
+            [cache-control] => Cache-Control
+            [content-type] => Content-Type
+            [p3p] => P3P
+            [server] => Server
+            [x-xss-protection] => X-XSS-Protection
+            [x-frame-options] => X-Frame-Options
+            [set-cookie] => Set-Cookie
+            [alt-svc] => Alt-Svc
+            [accept-ranges] => Accept-Ranges
+            [vary] => Vary
+            [transfer-encoding] => Transfer-Encoding
+        )
+
+    [protocol:GuzzleHttp\Psr7\Response:private] => 1.1
+    [stream:GuzzleHttp\Psr7\Response:private] => GuzzleHttp\Psr7\Stream Object
+        (
+            [stream:GuzzleHttp\Psr7\Stream:private] => Resource id #118
+            [size:GuzzleHttp\Psr7\Stream:private] => 
+            [seekable:GuzzleHttp\Psr7\Stream:private] => 1
+            [readable:GuzzleHttp\Psr7\Stream:private] => 1
+            [writable:GuzzleHttp\Psr7\Stream:private] => 1
+            [uri:GuzzleHttp\Psr7\Stream:private] => php://temp
+            [customMetadata:GuzzleHttp\Psr7\Stream:private] => Array
+                (
+                )
+
+        )
+
+)
+GuzzleHttp\Psr7\Response Object
+(
+    [reasonPhrase:GuzzleHttp\Psr7\Response:private] => OK
+    [statusCode:GuzzleHttp\Psr7\Response:private] => 200
+    [headers:GuzzleHttp\Psr7\Response:private] => Array
+        (
+            [Date] => Array
+                (
+                    [0] => Mon, 25 Nov 2019 15:57:48 GMT
+                )
+
+            [Expires] => Array
+                (
+                    [0] => -1
+                )
+
+            [Cache-Control] => Array
+                (
+                    [0] => private, max-age=0
+                )
+
+            [Content-Type] => Array
+                (
+                    [0] => text/html; charset=ISO-8859-1
+                )
+
+            [P3P] => Array
+                (
+                    [0] => CP="This is not a P3P policy! See g.co/p3phelp for more info."
+                )
+
+            [Server] => Array
+                (
+                    [0] => gws
+                )
+
+            [X-XSS-Protection] => Array
+                (
+                    [0] => 0
+                )
+
+            [X-Frame-Options] => Array
+                (
+                    [0] => SAMEORIGIN
+                )
+
+            [Set-Cookie] => Array
+                (
+                    [0] => 1P_JAR=2019-11-25-15; expires=Wed, 25-Dec-2019 15:57:48 GMT; path=/; domain=.google.com
+                    [1] => NID=192=RyJuJTY_n9eOqqP3qQZCvAmPY0nT30PouH0YEza-AVK6VaRit-2H-fYAEvaCjDZkMxVNJIDcl2ffHBY2nJL-XRsP_MTb0t6yWt563OM4_Vw0UVq8AElINPMMx45hJp46Q22L9B5w8KDkUNUziVr1hhMhJm-KxUK2jvDMk2rr544; expires=Tue, 26-May-2020 15:57:48 GMT; path=/; domain=.google.com; HttpOnly
+                )
+
+            [Alt-Svc] => Array
+                (
+                    [0] => quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443"; ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443"; ma=2592000
+                )
+
+            [Accept-Ranges] => Array
+                (
+                    [0] => none
+                )
+
+            [Vary] => Array
+                (
+                    [0] => Accept-Encoding
+                )
+
+            [Transfer-Encoding] => Array
+                (
+                    [0] => chunked
+                )
+
+        )
+
+    [headerNames:GuzzleHttp\Psr7\Response:private] => Array
+        (
+            [date] => Date
+            [expires] => Expires
+            [cache-control] => Cache-Control
+            [content-type] => Content-Type
+            [p3p] => P3P
+            [server] => Server
+            [x-xss-protection] => X-XSS-Protection
+            [x-frame-options] => X-Frame-Options
+            [set-cookie] => Set-Cookie
+            [alt-svc] => Alt-Svc
+            [accept-ranges] => Accept-Ranges
+            [vary] => Vary
+            [transfer-encoding] => Transfer-Encoding
+        )
+
+    [protocol:GuzzleHttp\Psr7\Response:private] => 1.1
+    [stream:GuzzleHttp\Psr7\Response:private] => GuzzleHttp\Psr7\Stream Object
+        (
+            [stream:GuzzleHttp\Psr7\Stream:private] => Resource id #118
+            [size:GuzzleHttp\Psr7\Stream:private] => 
+            [seekable:GuzzleHttp\Psr7\Stream:private] => 1
+            [readable:GuzzleHttp\Psr7\Stream:private] => 1
+            [writable:GuzzleHttp\Psr7\Stream:private] => 1
+            [uri:GuzzleHttp\Psr7\Stream:private] => php://temp
+            [customMetadata:GuzzleHttp\Psr7\Stream:private] => Array
+                (
+                )
+
+        )
+
+)
