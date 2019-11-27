@@ -21,7 +21,10 @@ class WebhookHandler extends Controller
     public function handle(Request $request)
     {   
         $data = $request->json()->all();
-        $telegram_handler = new TelegramHandler;
+
+        $telegram_token = '784355426:AAEgw0aJ01hx3PAr3AtAQSff6FF-c6T_bfw';
+        $telegram_handler = new TelegramHandler($telegram_token);
+
         $telegram_handler->handle($data);
     }
 }
