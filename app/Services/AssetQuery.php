@@ -6,11 +6,10 @@ use GuzzleHttp\Client;
 
 class AssetQuery
 {
-    public static $coinapi_key = '60D79F0F-3AA9-41A3-84CB-2B19DA8B7DBE';
-
     public $amount;
     public $asset;
     public $date; //2019-11-27T16:25:22+0000
+    public $coinapi_key;
 
     public $http_client;
 
@@ -27,13 +26,14 @@ class AssetQuery
             $this->date = $date->format(\DateTime::ATOM);
         }
 
-        $this->http_client = new Client(['base_uri' => 'https://rest.coinapi.io/v1/exchangerate/BTC/']);
+        $this->http_client = new Client(['base_uri' => env('COIN_API_BASE_URL')]);
+        $this->coinapi_key = env('COIN_API_KEY');
     }
 
     public function get_rate()
     {
         $response = $this->http_client->request('GET', $this->asset, [
-            'headers' => ['X-CoinAPI-Key' => self::$coinapi_key],
+            'headers' => ['X-CoinAPI-Key' => $this->coinapi_key],
             'query' => ['time' => $this->date],
         ]);
 
@@ -44,7 +44,8 @@ class AssetQuery
         return $rate;
     }
 
-    public function convert(){
+    public function convert()
+    {
         return $this->amount / $this->get_rate();
     }
 }

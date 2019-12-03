@@ -11,7 +11,7 @@ class TelegramHandler
 
     function __construct(string $token)
     {
-        $base_url = 'https://api.telegram.org/bot' . $token . '/';
+        $base_url = env('TELEGRAM_BASE_URL') . $token . '/';
         $this->http_client = new Client(['base_uri' => $base_url]);
     }
 
