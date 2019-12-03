@@ -22,9 +22,9 @@ class WebhookHandler extends Controller
     {   
         $data = $request->json()->all();
 
-        $telegram_token = env('TELEGRAM_TOKEN');
-        $telegram_handler = new TelegramHandler($telegram_token);
+        $telegramToken = env('TELEGRAM_TOKEN');
+        $telegramHandler = new TelegramHandler($telegramToken);
 
-        $telegram_handler->handle($data);
+        $telegramHandler->handle($data);
     }
 }

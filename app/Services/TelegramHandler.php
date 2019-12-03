@@ -7,15 +7,15 @@ use GuzzleHttp\Client;
 
 class TelegramHandler
 {
-    public $http_client;
+    public $httpClient;
 
     function __construct(string $token)
     {
-        $base_url = env('TELEGRAM_BASE_URL') . $token . '/';
-        $this->http_client = new Client(['base_uri' => $base_url]);
+        $baseURL = env('TELEGRAM_BASE_URL') . $token . '/';
+        $this->httpClient = new Client(['base_uri' => $baseURL]);
     }
 
-    public static function regex_data($text)
+    public static function regexData($text)
     {
         $re = '/(\d+)\s*(rub|R|r|\$|eur|usd)\s*(\d{2}\.\d{2}\.\d{4})?/';
         
@@ -23,7 +23,7 @@ class TelegramHandler
             return;
         };
 
-        $unformatted_assets = [
+        $unformattedAssets = [
             '$' => 'USD',
             'R' => 'RUB',
             'r' => 'RUB',
@@ -31,38 +31,38 @@ class TelegramHandler
 
         $asset = $matches[2];
 
-        if (array_key_exists($asset, $unformatted_assets)){
-            $matches[2] = $unformatted_assets[$asset];
+        if (array_key_exists($asset, $unformattedAssets)){
+            $matches[2] = $unformattedAssets[$asset];
         }
         
         return $matches;
     }
 
-    public function send_request($method, $params = [])
+    public function sendRequest($method, $params = [])
     {
-        $response = $this->http_client->request('GET', $method, ['query' => $params]);
+        $response = $this->httpClient->request('GET', $method, ['query' => $params]);
         $json = $response->getBody()->getContents();
         return json_decode($json, true);
     }
 
     public function handle($data)
     {
-        $chat_id = $data['message']['chat']['id'];
+        $chatID = $data['message']['chat']['id'];
         $text = $data['message']['text'];
 
-        $matches = self::regex_data($text);
+        $matches = self::regexData($text);
 
         if ($matches) {
             $asset = new AssetQuery($matches);
             $result = $asset->convert();
 
-            $this->send_request('sendMessage', [
-                'chat_id' => $chat_id,
+            $this->sendRequest('sendMessage', [
+                'chat_id' => $chatID,
                 'text' => $result,
             ]);
         } else {
-            $this->send_request('sendMessage', [
-                'chat_id' => $chat_id,
+            $this->sendRequest('sendMessage', [
+                'chat_id' => $chatID,
                 'text' => 'Invalid request',
             ]);
         }

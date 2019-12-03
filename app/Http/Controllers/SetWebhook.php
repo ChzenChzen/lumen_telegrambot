@@ -16,11 +16,11 @@ class SetWebhook extends Controller
 
     public function set()
     {
-        $TOKEN = '784355426:AAEgw0aJ01hx3PAr3AtAQSff6FF-c6T_bfw';
+        $TOKEN = env('TELEGRAM_TOKEN');
         $method = 'setWebhook';
 
 
-        $url = 'https://api.telegram.org/bot' . $TOKEN . '/' . $method;
+        $url = env('TELEGRAM_BASE_URL') . $TOKEN . '/' . $method;
         $options = [
             'url' => 'https://fomotoshi.dev/telegrambot',
         ];
