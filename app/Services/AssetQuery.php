@@ -49,18 +49,32 @@ class AssetQuery
         return $quotes;
     }
 
+    public function request($quotes)
+    {
+        $responses = [];
 
-    
+        if (isset($this->date)) {
+            //            
+        } else {
+            foreach ($quotes as $quote) {
+                $url = 'quotes/' . $quote . '/current';
+                $response = $this->httpClient->request('GET', $url, [
+                    'headers' => ['X-CoinAPI-Key' => $this->coinAPIKey],
+                ]);
+
+                $json = $response->getBody()->getContents();
+                $responses[] = json_decode($json, true);
+            }
+        }
+
+        return $responses;
+    }
+
+
 
     public function getRate()
     {
-        $response = $this->httpClient->request('GET', $this->asset, [
-            'headers' => ['X-CoinAPI-Key' => $this->coinAPIKey],
-            'query' => ['time' => $this->date],
-        ]);
 
-        $content = $response->getBody()->getContents();
-        $jsonToArray = json_decode($content, true);
         $rate = $jsonToArray['rate'];
 
         return $rate;
