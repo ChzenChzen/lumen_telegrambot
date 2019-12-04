@@ -12,6 +12,7 @@ class AssetQuery
     public $coinAPIKey;
 
     public $httpClient;
+    public $exchanges;
 
     function __construct($matches)
     {
@@ -28,7 +29,28 @@ class AssetQuery
 
         $this->httpClient = new Client(['base_uri' => env('COIN_API_BASE_URL')]);
         $this->coinAPIKey = env('COIN_API_KEY');
+        $this->exchanges = env('COIN_API_EXCHANGES');
     }
+
+    public function generateQuotes()
+    {
+        $quotes = [];
+
+        if ($this->asset == 'BTC') {
+            foreach ($this->exchanges as $exchange) {
+                $quotes[] = $exchange . '_SPOT_' . '_BTC_' . '_USD';
+                $quotes[] = $exchange . '_SPOT_' . '_BTC_' . '_EUR';
+            }
+        } else {
+            foreach ($this->exchanges as $exchange) {
+                $quotes[] = $exchange . '_SPOT_' . '_BTC_' . $this->asset;
+            }
+        }
+        return $quotes;
+    }
+
+
+    
 
     public function getRate()
     {
