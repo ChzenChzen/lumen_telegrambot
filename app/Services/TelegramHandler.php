@@ -17,7 +17,8 @@ class TelegramHandler
 
     public static function regexData($text)
     {
-        $re = '/(\d+)\s*(rub|R|r|\$|eur|usd)\s*(\d{2}\.\d{2}\.\d{4})?/';
+        $text = strtoupper($text);
+        $re = '/(\d+)\s*(RUB|R|\$|EUR|USD|BTC|BITCOIN)\s*(\d{2}\.\d{2}\.\d{4})?/';
         
         if (!preg_match($re, $text, $matches)){
             return;
@@ -26,7 +27,7 @@ class TelegramHandler
         $unformattedAssets = [
             '$' => 'USD',
             'R' => 'RUB',
-            'r' => 'RUB',
+            'BITCOIN' => 'BTC',
         ];
 
         $asset = $matches[2];

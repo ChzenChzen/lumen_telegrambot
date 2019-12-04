@@ -38,8 +38,8 @@ class AssetQuery
 
         if ($this->asset == 'BTC') {
             foreach ($this->exchanges as $exchange) {
-                $quotes[] = $exchange . '_SPOT_BTC_' . '_USD';
-                $quotes[] = $exchange . '_SPOT_BTC_' . '_EUR';
+                $quotes[] = $exchange . '_SPOT_BTC_USD';
+                $quotes[] = $exchange . '_SPOT_BTC_EUR';
             }
         } else {
             foreach ($this->exchanges as $exchange) {
@@ -95,10 +95,10 @@ class AssetQuery
     public function getRate()
     {
         $quotes = $this->generateQuotes();
-        $responses = $this->getData($quotes);
+        $data = $this->getData($quotes);
 
 
-        return print_r($responses, true);
+        return print_r($data, true);
         // $rate = $jsonToArray['rate'];
 
         // return $rate;
