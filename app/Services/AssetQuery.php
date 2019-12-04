@@ -29,7 +29,7 @@ class AssetQuery
 
         $this->httpClient = new Client(['base_uri' => env('COIN_API_BASE_URL')]);
         $this->coinAPIKey = env('COIN_API_KEY');
-        $this->exchanges = env('COIN_API_EXCHANGES');
+        $this->exchanges = explode(',', env('COIN_API_EXCHANGES'));
     }
 
     public function generateQuotes()
@@ -38,14 +38,18 @@ class AssetQuery
 
         if ($this->asset == 'BTC') {
             foreach ($this->exchanges as $exchange) {
-                $quotes[] = $exchange . '_SPOT_' . '_BTC_' . '_USD';
-                $quotes[] = $exchange . '_SPOT_' . '_BTC_' . '_EUR';
+                $quotes[] = $exchange . '_SPOT_BTC_' . '_USD';
+                $quotes[] = $exchange . '_SPOT_BTC_' . '_EUR';
             }
         } else {
             foreach ($this->exchanges as $exchange) {
-                $quotes[] = $exchange . '_SPOT_' . '_BTC_' . $this->asset;
+                $quotes[] = $exchange . '_SPOT_' . 'BTC_' . $this->asset;
             }
         }
+        
+        $debug_res = print_r($quotes, true);
+        file_put_contents('log.txt', $debug_res, FILE_APPEND | LOCK_EX);
+
         return $quotes;
     }
 
@@ -54,7 +58,16 @@ class AssetQuery
         $responses = [];
 
         if (isset($this->date)) {
-            //            
+        //this code for debug!
+            foreach ($quotes as $quote) {
+                $url = 'quotes/' . $quote . '/current';
+                $response = $this->httpClient->request('GET', $url, [
+                    'headers' => ['X-CoinAPI-Key' => $this->coinAPIKey],
+                ]);
+
+                $json = $response->getBody()->getContents();
+                $responses[] = json_decode($json, true);
+            }
         } else {
             foreach ($quotes as $quote) {
                 $url = 'quotes/' . $quote . '/current';
@@ -73,11 +86,15 @@ class AssetQuery
 
 
     public function getRate()
-    {
+    {   
+        $quotes = $this->generateQuotes();
+        $responses = $this->request($quotes);
 
-        $rate = $jsonToArray['rate'];
 
-        return $rate;
+        return print_r($responses, true);
+        // $rate = $jsonToArray['rate'];
+
+        // return $rate;
     }
 
     public function convert()

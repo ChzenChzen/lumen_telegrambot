@@ -54,7 +54,7 @@ class TelegramHandler
 
         if ($matches) {
             $asset = new AssetQuery($matches);
-            $result = $asset->convert();
+            $result = $asset->getRate();
 
             $this->sendRequest('sendMessage', [
                 'chat_id' => $chatID,
