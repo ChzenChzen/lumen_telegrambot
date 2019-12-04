@@ -46,37 +46,44 @@ class AssetQuery
                 $quotes[] = $exchange . '_SPOT_' . 'BTC_' . $this->asset;
             }
         }
-        
-        $debug_res = print_r($quotes, true);
-        file_put_contents('log.txt', $debug_res, FILE_APPEND | LOCK_EX);
 
         return $quotes;
     }
 
-    public function request($quotes)
+    public function request($url)
+    {
+        $response = $this->httpClient->request('GET', $url, [
+            'headers' => ['X-CoinAPI-Key' => $this->coinAPIKey],
+            'http_errors' => false,
+        ]);
+
+        if ($response->getStatusCode() == 200) {
+            $json = $response->getBody()->getContents();
+            return json_decode($json, true);
+        }
+
+        return [
+            'error' => 'error',
+        ];
+    }
+
+    public function getData($quotes)
     {
         $responses = [];
 
         if (isset($this->date)) {
-        //this code for debug!
-            foreach ($quotes as $quote) {
-                $url = 'quotes/' . $quote . '/current';
-                $response = $this->httpClient->request('GET', $url, [
-                    'headers' => ['X-CoinAPI-Key' => $this->coinAPIKey],
-                ]);
-
-                $json = $response->getBody()->getContents();
-                $responses[] = json_decode($json, true);
-            }
+            //this code for debug!
         } else {
             foreach ($quotes as $quote) {
                 $url = 'quotes/' . $quote . '/current';
-                $response = $this->httpClient->request('GET', $url, [
-                    'headers' => ['X-CoinAPI-Key' => $this->coinAPIKey],
-                ]);
 
-                $json = $response->getBody()->getContents();
-                $responses[] = json_decode($json, true);
+                $data = $this->request($url);
+
+                if (array_key_exists('error', $data)) {
+                    $data['symbol_id'] = $quote;
+                }
+
+                $responses[] = $data;
             }
         }
 
@@ -86,9 +93,9 @@ class AssetQuery
 
 
     public function getRate()
-    {   
+    {
         $quotes = $this->generateQuotes();
-        $responses = $this->request($quotes);
+        $responses = $this->getData($quotes);
 
 
         return print_r($responses, true);
