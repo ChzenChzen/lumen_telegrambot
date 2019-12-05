@@ -90,18 +90,51 @@ class AssetQuery
         return $responses;
     }
 
+    public function getExchange($data)
+    {
+        $splitted = explode('_', $data['symbol_id']);
+        return $splitted[0];
+    }
 
+    public function getSymbols($data)
+    {
+        $splitted = explode('_', $data['symbol_id']);
+        return [
+            'base' => $splitted[2],
+            'query' => $splitted[3],
+        ];
+    }
+
+    public function getLastPrice($data)
+    {
+        return $data['last_trade']['price'];
+    }
 
     public function getRate()
     {
         $quotes = $this->generateQuotes();
         $data = $this->getData($quotes);
 
+        $output = [];
+        foreach ($data as $item) {
+            $exchange = $this->getExchange($item);
 
-        return print_r($data, true);
-        // $rate = $jsonToArray['rate'];
+            if (key_exists('error', $item)) {
+                $output[] = $exchange . ': This trading pair doesn\'t exist.';
+            } else {
+                $symbols = $this->getSymbols($item);
 
-        // return $rate;
+                if ($this->asset == 'BTC') {
+                    $value = $this->amount * $this->getLastPrice($item);
+                    $output[] = $exchange . ': ' . $value . ' ' . $symbols['query'];
+                } else {
+                    $value = $this->amount / $this->getLastPrice($item);
+                    $output[] = $exchange . ': ' . $value . ' ' . $symbols['base'];
+                }
+            }
+        }
+
+        return print_r($output, true);
     }
 
     public function convert()
