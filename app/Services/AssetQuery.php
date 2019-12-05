@@ -50,36 +50,62 @@ class AssetQuery
         return $quotes;
     }
 
-    public function request($url)
+    public function request($url, $historical = false)
     {
-        $response = $this->httpClient->request('GET', $url, [
+        $params = [
             'headers' => ['X-CoinAPI-Key' => $this->coinAPIKey],
             'http_errors' => false,
-        ]);
+        ];
+
+        if ($historical) {
+            $params[] = [
+                'query' => [
+                    'time_start' => $this->date,
+                    'limit' => 10,
+                ]
+            ];
+        }
+
+        $response = $this->httpClient->request('GET', $url, $params);
+
 
         if ($response->getStatusCode() == 200) {
             $json = $response->getBody()->getContents();
             return json_decode($json, true);
+        } else if ($response->getStatusCode() == 429) {
+            return [
+                'error' => 'too many requests',
+            ];
         }
 
         return [
-            'error' => 'error',
+            'error' => 'wrong request',
         ];
     }
+
 
     public function getData($quotes)
     {
         $responses = [];
 
         if (isset($this->date)) {
-            //this code for debug!
+            foreach ($quotes as $quote) {
+                $url = 'quotes/' . $quote . '/history';
+                $data = $this->request($url, true);
+
+                if (key_exists('error', $data)) {
+                    $data['symbol_id'] = $quote;
+                }
+
+                $responses[] = $data;
+            }
         } else {
             foreach ($quotes as $quote) {
                 $url = 'quotes/' . $quote . '/current';
 
                 $data = $this->request($url);
 
-                if (array_key_exists('error', $data)) {
+                if (key_exists('error', $data)) {
                     $data['symbol_id'] = $quote;
                 }
 
@@ -107,7 +133,7 @@ class AssetQuery
 
     public function getLastPrice($data)
     {
-        return $data['last_trade']['price'];
+        return $data['bid_price'];
     }
 
     public function getRate()
@@ -120,7 +146,7 @@ class AssetQuery
             $exchange = $this->getExchange($item);
 
             if (key_exists('error', $item)) {
-                $output[] = $exchange . ': This trading pair doesn\'t exist.';
+                $output[] = $exchange . ': ' . $item['error'];
             } else {
                 $symbols = $this->getSymbols($item);
 
