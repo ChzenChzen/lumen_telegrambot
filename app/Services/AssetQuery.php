@@ -155,11 +155,11 @@ class AssetQuery
 
                     if ($this->asset == 'BTC') {
                         $value = $this->amount * $this->getLastPrice($item);
-                        
-                        $output[] = $exchange . ': ' . $value . ' ' . $symbols['query'];
+
+                        $output[] = $exchange . ': ' . round($value, 2) . ' ' . $symbols['query'];
                     } else {
                         $value = $this->amount / $this->getLastPrice($item);
-                        $output[] = $exchange . ': ' . $value . ' ' . $symbols['base'];
+                        $output[] = $exchange . ': ' . round($value, 8) . ' ' . $symbols['base'];
                     }
                 }
             }

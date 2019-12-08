@@ -60,24 +60,30 @@ class TelegramHandler
         // send 200 OK
         $this->sendRequest('sendMessage', [
             'chat_id' => $chatID,
-            'text' => 'wait a second',
         ]);
 
-        $matches = self::regexData($text);
-
-        if ($matches) {
-            $asset = new AssetQuery($matches);
-            $result = $asset->getRate();
-
+        if ($text == '/start') {
             $this->sendRequest('sendMessage', [
                 'chat_id' => $chatID,
-                'text' => $result,
+                'text' => 'If you want to convert one asset to another you should send request in the next format: 1btc or 1 btc or 0.5 btc or 400eur. For request with date you have to follow next format: 1btc 20.04.2016 or 1btc20.04.2016.',
             ]);
         } else {
-            $this->sendRequest('sendMessage', [
-                'chat_id' => $chatID,
-                'text' => 'Invalid request',
-            ]);
+            $matches = self::regexData($text);
+
+            if ($matches) {
+                $asset = new AssetQuery($matches);
+                $result = $asset->getRate();
+
+                $this->sendRequest('sendMessage', [
+                    'chat_id' => $chatID,
+                    'text' => $result,
+                ]);
+            } else {
+                $this->sendRequest('sendMessage', [
+                    'chat_id' => $chatID,
+                    'text' => 'Invalid request',
+                ]);
+            }
         }
     }
 }
