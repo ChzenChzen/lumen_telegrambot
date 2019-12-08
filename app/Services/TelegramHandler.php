@@ -20,7 +20,7 @@ class TelegramHandler
     public static function regexData($text)
     {
         $text = strtoupper($text);
-        $re = '/(\0*.*\d+)\s*(RUB|R|\$|EUR|USD|BTC|BITCOIN)\s*(\d{2}\.\d{2}\.\d{4})?/';
+        $re = '/(-*\0*.*\d+)\s*(RUB|R|\$|EUR|USD|BTC|BITCOIN)\s*(\d{2}\.\d{2}\.\d{4})?/';
 
         if (!preg_match($re, $text, $matches)) {
             return;
