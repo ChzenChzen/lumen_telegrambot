@@ -24,7 +24,6 @@ class WebhookHandler extends Controller
 
         $telegramToken = env('TELEGRAM_TOKEN');
         $telegramHandler = new TelegramHandler($telegramToken);
-
         $telegramHandler->handle($data);
     }
 }

@@ -8,7 +8,7 @@ class AssetQuery
 {
     public $amount;
     public $asset;
-    public $date; //2019-11-27T16:25:22+0000
+    public $date; //2019-11-27T16:25:22+0000 
     public $coinAPIKey;
 
     public $httpClient;
@@ -58,16 +58,13 @@ class AssetQuery
         ];
 
         if ($historical) {
-            $params[] = [
-                'query' => [
-                    'time_start' => $this->date,
-                    'limit' => 10,
-                ]
+            $params['query'] = [
+                'time_start' => $this->date,
+                'limit' => 1,
             ];
         }
 
         $response = $this->httpClient->request('GET', $url, $params);
-
 
         if ($response->getStatusCode() == 200) {
             $json = $response->getBody()->getContents();
@@ -95,9 +92,11 @@ class AssetQuery
 
                 if (key_exists('error', $data)) {
                     $data['symbol_id'] = $quote;
+                    $responses[] = $data;
+                } else {
+                    // response for historical data is array which contain one more array with our data
+                    $responses[] = $data[0];
                 }
-
-                $responses[] = $data;
             }
         } else {
             foreach ($quotes as $quote) {
@@ -142,20 +141,26 @@ class AssetQuery
         $data = $this->getData($quotes);
 
         $output = [];
-        foreach ($data as $item) {
-            $exchange = $this->getExchange($item);
 
-            if (key_exists('error', $item)) {
-                $output[] = $exchange . ': ' . $item['error'];
-            } else {
-                $symbols = $this->getSymbols($item);
+        if ($this->amount < 0) {
+            $output[] = 'The value of query must be a positive number';
+        } else {
+            foreach ($data as $item) {
+                $exchange = $this->getExchange($item);
 
-                if ($this->asset == 'BTC') {
-                    $value = $this->amount * $this->getLastPrice($item);
-                    $output[] = $exchange . ': ' . $value . ' ' . $symbols['query'];
+                if (key_exists('error', $item)) {
+                    $output[] = $exchange . ': ' . $item['error'];
                 } else {
-                    $value = $this->amount / $this->getLastPrice($item);
-                    $output[] = $exchange . ': ' . $value . ' ' . $symbols['base'];
+                    $symbols = $this->getSymbols($item);
+
+                    if ($this->asset == 'BTC') {
+                        $value = $this->amount * $this->getLastPrice($item);
+                        
+                        $output[] = $exchange . ': ' . $value . ' ' . $symbols['query'];
+                    } else {
+                        $value = $this->amount / $this->getLastPrice($item);
+                        $output[] = $exchange . ': ' . $value . ' ' . $symbols['base'];
+                    }
                 }
             }
         }

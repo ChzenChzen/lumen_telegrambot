@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use GuzzleHttp\Client;
-
+use PDO;
 
 class TelegramHandler
 {
@@ -12,15 +12,17 @@ class TelegramHandler
     function __construct(string $token)
     {
         $baseURL = env('TELEGRAM_BASE_URL') . $token . '/';
-        $this->httpClient = new Client(['base_uri' => $baseURL]);
+        $this->httpClient = new Client([
+            'base_uri' => $baseURL,
+        ]);
     }
 
     public static function regexData($text)
     {
         $text = strtoupper($text);
-        $re = '/(\d+)\s*(RUB|R|\$|EUR|USD|BTC|BITCOIN)\s*(\d{2}\.\d{2}\.\d{4})?/';
-        
-        if (!preg_match($re, $text, $matches)){
+        $re = '/(\0*.*\d+)\s*(RUB|R|\$|EUR|USD|BTC|BITCOIN)\s*(\d{2}\.\d{2}\.\d{4})?/';
+
+        if (!preg_match($re, $text, $matches)) {
             return;
         };
 
@@ -32,16 +34,20 @@ class TelegramHandler
 
         $asset = $matches[2];
 
-        if (array_key_exists($asset, $unformattedAssets)){
+        if (array_key_exists($asset, $unformattedAssets)) {
             $matches[2] = $unformattedAssets[$asset];
         }
-        
+
         return $matches;
     }
 
     public function sendRequest($method, $params = [])
     {
-        $response = $this->httpClient->request('GET', $method, ['query' => $params]);
+        $response = $this->httpClient->request('GET', $method, [
+            'query' => $params,
+            'http_errors' => false,
+        ]);
+
         $json = $response->getBody()->getContents();
         return json_decode($json, true);
     }
@@ -50,6 +56,12 @@ class TelegramHandler
     {
         $chatID = $data['message']['chat']['id'];
         $text = $data['message']['text'];
+
+        // send 200 OK
+        $this->sendRequest('sendMessage', [
+            'chat_id' => $chatID,
+            'text' => 'wait a second',
+        ]);
 
         $matches = self::regexData($text);
 
@@ -67,6 +79,5 @@ class TelegramHandler
                 'text' => 'Invalid request',
             ]);
         }
-        
     }
 }
