@@ -60,6 +60,15 @@ class TelegramHandler
         ]);
     }
 
+    public function formatResult($result)
+    {
+        $output = '';
+        foreach ($result as $item) {
+            $output .= $item . "\n";
+        }
+        return $output;
+    }
+
     public function handle($data)
     {
         $chatID = $data['message']['chat']['id'];
@@ -78,7 +87,8 @@ class TelegramHandler
             if ($matches) {
                 $asset = new AssetQuery($matches);
                 $result = $asset->getRate();
-                $this->sendMessage($chatID, $result);
+                $formattedResult = $this->formatResult($result);
+                $this->sendMessage($chatID, $formattedResult);
             } else {
                 $this->sendMessage($chatID, 'Invalid request');
             }

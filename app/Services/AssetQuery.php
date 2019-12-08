@@ -165,7 +165,7 @@ class AssetQuery
             }
         }
 
-        return print_r($output, true);
+        return $output;
     }
 
     public function convert()
