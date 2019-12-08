@@ -52,6 +52,14 @@ class TelegramHandler
         return json_decode($json, true);
     }
 
+    public function sendMessage($chatID, $text)
+    {
+        $this->sendRequest('sendMessage', [
+            'chat_id' => $chatID,
+            'text' => $text,
+        ]);
+    }
+
     public function handle($data)
     {
         $chatID = $data['message']['chat']['id'];
@@ -63,26 +71,16 @@ class TelegramHandler
         ]);
 
         if ($text == '/start') {
-            $this->sendRequest('sendMessage', [
-                'chat_id' => $chatID,
-                'text' => 'If you want to convert one asset to another you should send request in the next format: 1btc or 1 btc or 0.5 btc or 400eur. For request with date you have to follow next format: 1btc 20.04.2016 or 1btc20.04.2016.',
-            ]);
+            $this->sendMessage($chatID, 'If you want to convert one asset to another you should send request in the next format: 1btc or 1 btc or 0.5 btc or 400eur. For request with date you have to follow next format: 1btc 20.04.2016 or 1btc20.04.2016.');
         } else {
             $matches = self::regexData($text);
 
             if ($matches) {
                 $asset = new AssetQuery($matches);
                 $result = $asset->getRate();
-
-                $this->sendRequest('sendMessage', [
-                    'chat_id' => $chatID,
-                    'text' => $result,
-                ]);
+                $this->sendMessage($chatID, $result);
             } else {
-                $this->sendRequest('sendMessage', [
-                    'chat_id' => $chatID,
-                    'text' => 'Invalid request',
-                ]);
+                $this->sendMessage($chatID, 'Invalid request');
             }
         }
     }
